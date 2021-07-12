@@ -1,7 +1,12 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { IPost } from '../interfaces/Post';
 
-const Post = () => {
+const Post = ({
+  id,
+  title,
+  body
+}: IPost) => {
   const [isEdit, setIsEdit] = useState(false);
 
   return (
@@ -12,22 +17,22 @@ const Post = () => {
             <input
               type="text"
               className="form-control mb-2"
-              value="Special title treatment"
+              value={title}
             />
             <textarea
               className="form-control mb-2"
-              value="With supporting text below as a natural lead-in to additional content."
+              value={body}
               rows={3}
             />
           </div>
         ) : (
           <div className="mb-3">
-            <h5 className="card-title">Special title treatment</h5>
-            <p className="card-text">With supporting text below as a natural lead-in to additional content.</p>
+            <h5 className="card-title">{title}</h5>
+            <p className="card-text">{body}</p>
           </div>
         )}
         <div className="d-flex justify-content-between align-items-center">
-          <Link to="/posts/1" className="btn btn-primary">Посмотреть</Link>
+          <Link to={`/posts/${id}`} className="btn btn-primary">Посмотреть</Link>
           {isEdit ? (
             <div>
               <button className="btn btn-success" style={{ marginRight: '10px' }}>
