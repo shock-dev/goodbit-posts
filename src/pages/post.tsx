@@ -1,20 +1,38 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Link, useParams, useHistory } from 'react-router-dom';
 import Comment from '../components/Comment';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchPost } from '../store/post/actions';
+import { selectPostData, selectPostError, selectPostLoading } from '../store/post/selectors';
+import Spinner from '../components/Spinner';
 
 const OnePostPage = () => {
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const loading = useSelector(selectPostLoading);
+  const error = useSelector(selectPostError);
+  const post = useSelector(selectPostData);
+  const { id }: { id: string } = useParams();
+
+  useEffect(() => {
+    dispatch(fetchPost(id));
+  }, []);
+
+  if (!post && error) {
+    history.push('/posts');
+  }
+
   return (
     <>
       <Link to="/posts" className="btn btn-outline-primary mb-2">Назад</Link>
-      <h1>Title</h1>
-      <p>
-        Сайт рыбатекст поможет дизайнеру, верстальщику, вебмастеру сгенерировать
-        несколько абзацев более менее осмысленного текста рыбы на
-        русском языке, а начинающему оратору отточить навык публичных выступлений
-        в домашних условиях. При создании генератора мы использовали небезизвестный
-        универсальный код речей. Текст генерируется абзацами случайным образом от двух
-        до десяти предложений
-      </p>
+      {loading ? (
+        <Spinner />
+      ) : (
+        <>
+          <h1>{post?.title}</h1>
+          <p>{post?.body}</p>
+        </>
+      )}
       <h3 className="pb-2">Комментарии</h3>
       <Comment />
       <h3 className="pb-2">Оставить комментарий</h3>
