@@ -5,17 +5,22 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchPost } from '../store/post/actions';
 import { selectPostData, selectPostError, selectPostLoading } from '../store/post/selectors';
 import Spinner from '../components/Spinner';
+import { fetchComments } from '../store/comments/actions';
+import { selectCommentsItems, selectCommentsLoading } from '../store/comments/selectors';
 
 const OnePostPage = () => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const loading = useSelector(selectPostLoading);
+  const postLoading = useSelector(selectPostLoading);
+  const commentsLoading = useSelector(selectCommentsLoading);
   const error = useSelector(selectPostError);
   const post = useSelector(selectPostData);
+  const comments = useSelector(selectCommentsItems);
   const { id }: { id: string } = useParams();
 
   useEffect(() => {
     dispatch(fetchPost(id));
+    dispatch(fetchComments(id));
   }, []);
 
   if (!post && error) {
@@ -25,7 +30,7 @@ const OnePostPage = () => {
   return (
     <>
       <Link to="/posts" className="btn btn-outline-primary mb-2">Назад</Link>
-      {loading ? (
+      {postLoading ? (
         <Spinner />
       ) : (
         <>
@@ -34,7 +39,17 @@ const OnePostPage = () => {
         </>
       )}
       <h3 className="pb-2">Комментарии</h3>
-      <Comment />
+      {commentsLoading ? (
+        <Spinner />
+      ) : (
+        comments.map((item, index) =>
+          <Comment
+            key={index}
+            index={index}
+            text={item.body}
+          />
+        )
+      )}
       <h3 className="pb-2">Оставить комментарий</h3>
       <form className="mb-5">
         <div className="form-group w-75">
