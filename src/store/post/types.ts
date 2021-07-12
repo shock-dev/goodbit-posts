@@ -7,8 +7,8 @@ export interface PostState {
 }
 
 export enum PostActionType {
-  FETCH_POST = '@posts/FETCH_POST',
-  SET_POST = '@posts/SET_POST',
-  SET_LOADING = '@posts/SET_LOADING',
-  SET_ERROR = '@posts/SET_ERROR'
+  FETCH_POST = '@post/FETCH_POST',
+  SET_POST = '@post/SET_POST',
+  SET_LOADING = '@post/SET_LOADING',
+  SET_ERROR = '@post/SET_ERROR'
 }

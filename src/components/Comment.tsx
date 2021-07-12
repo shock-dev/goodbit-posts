@@ -1,22 +1,31 @@
 import React, { useState } from 'react';
+import { IComment } from '../interfaces/Comment';
 
-const Comment = () => {
+interface CommentProps {
+  index: number
+  text: IComment['body']
+}
+
+const Comment = ({
+  index,
+  text
+}: CommentProps) => {
   const [isEdit, setIsEdit] = useState(false);
 
   return (
     <div className="card w-100 mb-3">
       <div className="card-body">
-        <h5 className="card-title">#1</h5>
+        <h5 className="card-title">#{index + 1}</h5>
         {isEdit ? (
           <div className="form-group">
             <input
               type="text"
               className="form-control mb-3"
-              value="With supporting text below as a natural lead-in to additional content."
+              value={text}
             />
           </div>
         ) : (
-          <p className="card-text">With supporting text below as a natural lead-in to additional content.</p>
+          <p className="card-text">{text}</p>
         )}
         {isEdit ? (
           <div>
