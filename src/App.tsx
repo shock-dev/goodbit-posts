@@ -5,15 +5,17 @@ import Post from './pages/post';
 
 const App = () => {
   return (
-    <Switch>
-      <Route path="/posts" exact>
-        <Posts />
-      </Route>
-      <Route path="/posts/:id">
-        <Post />
-      </Route>
-      <Redirect from="/" to="/posts" />
-    </Switch>
+    <div className="container pt-4" style={{ maxWidth: '1000px' }}>
+      <Switch>
+        <Route path="/posts" exact>
+          <Posts />
+        </Route>
+        <Route path="/posts/:id">
+          <Post />
+        </Route>
+        <Redirect from="/" to="/posts" />
+      </Switch>
+    </div>
   );
 };
 
