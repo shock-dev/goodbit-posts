@@ -26,6 +26,8 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "server": "npx json-server --watch db.json --port 5000",
+    "dev": "concurrently \"yarn server\" \"yarn start\"",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -53,6 +55,7 @@
     "@types/react-router-dom": "^5.1.8",
     "@typescript-eslint/eslint-plugin": "^4.28.2",
     "@typescript-eslint/parser": "^4.28.2",
+    "concurrently": "^6.2.0",
     "eslint": "^7.30.0",
     "eslint-config-google": "^0.14.0",
     "eslint-plugin-react": "^7.24.0",
