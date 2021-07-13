@@ -1,6 +1,7 @@
 import produce from 'immer';
 import { CommentsActionType, CommentsState } from './types';
 import { EntityState } from '../types';
+import { IComment } from '../../interfaces/Comment';
 
 const initialState: CommentsState = {
   items: [],
@@ -39,6 +40,10 @@ const comments = produce((draft, action) => {
 
     case CommentsActionType.ADD_COMMENT:
       draft.items.push(action.payload);
+      break;
+
+    case CommentsActionType.REMOVE_COMMENT:
+      draft.items.splice(draft.items.find((comment: IComment) => comment.id === action.payload), 1);
       break;
 
     default:

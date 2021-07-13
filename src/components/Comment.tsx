@@ -1,14 +1,16 @@
-import React, { useState } from 'react';
+import React, { MouseEventHandler, useState } from 'react';
 import { IComment } from '../interfaces/Comment';
 
 interface CommentProps {
   index: number
   text: IComment['body']
+  onDelete: MouseEventHandler<HTMLButtonElement>
 }
 
 const Comment = ({
   index,
-  text
+  text,
+  onDelete
 }: CommentProps) => {
   const [isEdit, setIsEdit] = useState(false);
 
@@ -48,7 +50,7 @@ const Comment = ({
             >
               <i className="bi bi-pen" />
             </button>
-            <button className="btn btn-danger">
+            <button className="btn btn-danger" onClick={onDelete}>
               <i className="bi bi-trash" />
             </button>
           </div>

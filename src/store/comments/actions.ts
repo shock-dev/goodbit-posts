@@ -8,6 +8,10 @@ export const fetchComments = (id: string) => action(CommentsActionType.FETCH_COM
 
 export const fetchCreatingComment = (payload: ICreateCommentForm) => action(CommentsActionType.FETCH_CREATING_COMMENT, payload);
 
+export const fetchDeletingComment = (id: string) => action(CommentsActionType.FETCH_DELETING_COMMENT, id);
+
+export const deleteComment = (id: string) => action(CommentsActionType.REMOVE_COMMENT, id);
+
 export const addComment = (payload: IComment) => action(CommentsActionType.ADD_COMMENT, payload);
 
 export const setStatus = (status: EntityState) => action(CommentsActionType.SET_STATUS, status);

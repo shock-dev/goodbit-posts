@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchPost } from '../store/post/actions';
 import { selectPostData, selectPostError, selectPostLoading } from '../store/post/selectors';
 import Spinner from '../components/Spinner';
-import { fetchComments, fetchCreatingComment } from '../store/comments/actions';
+import { fetchComments, fetchCreatingComment, fetchDeletingComment } from '../store/comments/actions';
 import { selectCommentsCreatingStatus, selectCommentsItems, selectCommentsStatus } from '../store/comments/selectors';
 import { EntityState } from '../store/types';
 
@@ -55,6 +55,10 @@ const OnePostPage = () => {
     dispatch(fetchCreatingComment(newComment));
   };
 
+  const deleteCommentHandler = (id: string) => {
+    dispatch(fetchDeletingComment(id));
+  };
+
   return (
     <>
       <Link to="/posts" className="btn btn-outline-primary mb-2">Назад</Link>
@@ -75,6 +79,7 @@ const OnePostPage = () => {
             key={index}
             index={index}
             text={item.body}
+            onDelete={() => deleteCommentHandler(item.id.toString())}
           />
         )
       )}
