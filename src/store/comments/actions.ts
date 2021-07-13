@@ -8,6 +8,8 @@ export const fetchComments = (id: string) => action(CommentsActionType.FETCH_COM
 
 export const fetchCreatingComment = (payload: ICreateCommentForm) => action(CommentsActionType.FETCH_CREATING_COMMENT, payload);
 
+export const fetchUpdatingComment = (id: string, body: string) => action(CommentsActionType.FETCH_UPDATING_COMMENT, { id, body });
+
 export const fetchDeletingComment = (id: string) => action(CommentsActionType.FETCH_DELETING_COMMENT, id);
 
 export const deleteComment = (id: string) => action(CommentsActionType.REMOVE_COMMENT, id);
@@ -15,6 +17,8 @@ export const deleteComment = (id: string) => action(CommentsActionType.REMOVE_CO
 export const addComment = (payload: IComment) => action(CommentsActionType.ADD_COMMENT, payload);
 
 export const setStatus = (status: EntityState) => action(CommentsActionType.SET_STATUS, status);
+
+export const updateComment = (id: string, body: string) => action(CommentsActionType.UPDATE_COMMENT, { id, body });
 
 export const setCreatingStatus = (status: EntityState) => action(CommentsActionType.SET_CREATING_STATUS, status);
 

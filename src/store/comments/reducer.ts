@@ -46,6 +46,13 @@ const comments = produce((draft, action) => {
       draft.items.splice(draft.items.find((comment: IComment) => comment.id === action.payload), 1);
       break;
 
+    case CommentsActionType.UPDATE_COMMENT:
+      const { id, body } = action.payload;
+      console.log({ id, body });
+      const itemIndex = draft.items.findIndex((item: IComment) => item.id === +id);
+      draft.items[itemIndex].body = body;
+      break;
+
     default:
       break;
   }

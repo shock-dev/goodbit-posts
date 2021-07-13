@@ -76,6 +76,7 @@ const OnePostPage = () => {
       ) : (
         comments.map((item, index) =>
           <Comment
+            id={item.id}
             key={index}
             index={index}
             text={item.body}

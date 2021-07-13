@@ -1,18 +1,38 @@
-import React, { MouseEventHandler, useState } from 'react';
+import React, { ChangeEvent, MouseEventHandler, useState } from 'react';
 import { IComment } from '../interfaces/Comment';
+import { useDispatch } from 'react-redux';
+import { fetchUpdatingComment } from '../store/comments/actions';
 
 interface CommentProps {
+  id: number
   index: number
   text: IComment['body']
   onDelete: MouseEventHandler<HTMLButtonElement>
 }
 
 const Comment = ({
+  id,
   index,
   text,
   onDelete
 }: CommentProps) => {
+  const dispatch = useDispatch();
   const [isEdit, setIsEdit] = useState(false);
+  const [body, setBody] = useState(text);
+
+  const changeBodyHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    setBody(e.target.value);
+  };
+
+  const updateCommentHandler = () => {
+    dispatch(fetchUpdatingComment(id.toString(), body));
+    setIsEdit(false);
+  };
+
+  const cancelUpdatingHandler = () => {
+    setIsEdit(false);
+    setBody(text);
+  };
 
   return (
     <div className="card w-100 mb-3">
@@ -23,7 +43,8 @@ const Comment = ({
             <input
               type="text"
               className="form-control mb-3"
-              value={text}
+              value={body}
+              onChange={changeBodyHandler}
             />
           </div>
         ) : (
@@ -31,12 +52,16 @@ const Comment = ({
         )}
         {isEdit ? (
           <div>
-            <button className="btn btn-success" style={{ marginRight: '10px' }}>
+            <button
+              className="btn btn-success"
+              style={{ marginRight: '10px' }}
+              onClick={updateCommentHandler}
+            >
               <i className="bi bi-check-lg" />
             </button>
             <button
               className="btn btn-danger"
-              onClick={() => setIsEdit(false)}
+              onClick={cancelUpdatingHandler}
             >
               <i className="bi bi-x-lg" />
             </button>
