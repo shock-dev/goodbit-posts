@@ -22,8 +22,8 @@
   npm install
 ```
 
-Запуск сервера
+Запуск json-server и react
 
 ```bash
-  npm run start
+  npm run dev
 ```
