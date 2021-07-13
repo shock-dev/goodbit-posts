@@ -7,3 +7,10 @@ export interface RootState {
   post: PostState
   comments: CommentsState
 }
+
+export enum EntityState {
+  NEVER = 'NEVER',
+  LOADING = 'LOADING',
+  ERROR = 'ERROR',
+  LOADED = 'LOADED'
+}

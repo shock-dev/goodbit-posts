@@ -1,29 +1,41 @@
 import produce from 'immer';
 import { PostsActionType, PostsState } from './types';
+import { EntityState } from '../types';
 
 const initialState: PostsState = {
   items: [],
-  loading: false,
+  status: EntityState.NEVER,
+  creatingStatus: EntityState.NEVER,
   error: undefined
 };
 
 const posts = produce((draft, action) => {
   switch (action.type) {
     case PostsActionType.FETCH_POSTS:
-      draft.error = undefined;
-      draft.loading = true;
+      draft.status = EntityState.LOADING;
       break;
 
     case PostsActionType.SET_POSTS:
       draft.items = action.payload;
-      break;
-
-    case PostsActionType.SET_LOADING:
-      draft.loading = action.payload;
+      draft.status = EntityState.LOADED;
+      draft.error = undefined;
       break;
 
     case PostsActionType.SET_ERROR:
+      draft.status = EntityState.ERROR;
       draft.error = action.payload;
+      break;
+
+    case PostsActionType.SET_CREATING_LOADING:
+      draft.creatingStatus = action.payload;
+      break;
+
+    case PostsActionType.FETCH_CREATING_POST:
+      draft.creatingStatus = EntityState.LOADING;
+      break;
+
+    case PostsActionType.ADD_POST:
+      draft.items.unshift(action.payload);
       break;
 
     default:

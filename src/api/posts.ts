@@ -10,6 +10,11 @@ class PostsApi {
     const { data } = await axios.get(`/posts/${id}`);
     return data;
   }
+
+  create = async (payload: { title: string, body: string }) => {
+    const { data } = await axios.post('/posts', payload);
+    return data;
+  }
 }
 
 export default new PostsApi();

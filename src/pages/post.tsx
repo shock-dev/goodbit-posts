@@ -19,6 +19,7 @@ const OnePostPage = () => {
   const { id }: { id: string } = useParams();
 
   useEffect(() => {
+    document.title = 'Страница поста';
     dispatch(fetchPost(id));
     dispatch(fetchComments(id));
   }, []);
