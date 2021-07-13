@@ -15,6 +15,11 @@ class PostsApi {
     const { data } = await axios.post('/posts', payload);
     return data;
   }
+
+  update = async (id: string, payload: { title: string, body: string }) => {
+    const { data } = await axios.put(`/posts/${id}`, payload);
+    return data;
+  }
 }
 
 export default new PostsApi();

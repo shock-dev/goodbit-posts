@@ -10,12 +10,14 @@ export interface PostsState {
 
 export enum PostsActionType {
   FETCH_POSTS = '@posts/FETCH_POSTS',
+  FETCH_CREATING_POST = '@posts/FETCH_CREATING_POST',
+  FETCH_UPDATING_POST = '@posts/FETCH_UPDATING_POST',
 
   SET_POSTS = '@posts/SET_POSTS',
   SET_ERROR = '@posts/SET_ERROR',
   SET_STATUS = '@posts/SET_STATUS',
 
-  FETCH_CREATING_POST = '@posts/FETCH_CREATING_POST',
   ADD_POST = '@posts/ADD_POST',
+  UPDATE_POST = '@posts/UPDATE_POST',
   SET_CREATING_LOADING = '@posts/SET_CREATING_LOADING',
 }
