@@ -1,7 +1,7 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
 import { SagaIterator } from 'redux-saga';
 import PostsApi from '../../api/posts';
-import { addPost, setCreatingLoading, setError, setPosts, setStatus, updatePost } from './actions';
+import { addPost, deletePost, setCreatingLoading, setError, setPosts, setStatus, updatePost } from './actions';
 import { PostsActionType } from './types';
 import { EntityState } from '../types';
 
@@ -39,10 +39,23 @@ function* fetchUpdatingPost(action: any): SagaIterator {
   }
 }
 
+function* fetchDeletingPost(action: any): SagaIterator {
+  try {
+    const id = action.payload;
+    yield call(PostsApi.delete, id);
+    yield put(deletePost(id));
+  } catch (e) {
+    yield put(setError('Что-то пошло не так.'));
+  } finally {
+    yield put(setCreatingLoading(EntityState.LOADED));
+  }
+}
+
 function* PostsSaga() {
   yield takeEvery(PostsActionType.FETCH_POSTS, fetchPosts);
   yield takeEvery(PostsActionType.FETCH_CREATING_POST, fetchCreatingPost);
   yield takeEvery(PostsActionType.FETCH_UPDATING_POST, fetchUpdatingPost);
+  yield takeEvery(PostsActionType.FETCH_DELETING_POST, fetchDeletingPost);
 }
 
 export default PostsSaga;

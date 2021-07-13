@@ -20,6 +20,11 @@ class PostsApi {
     const { data } = await axios.put(`/posts/${id}`, payload);
     return data;
   }
+
+  delete = async (id: string) => {
+    const { data } = await axios.delete(`/posts/${id}`);
+    return data;
+  }
 }
 
 export default new PostsApi();

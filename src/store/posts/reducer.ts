@@ -1,7 +1,7 @@
 import produce from 'immer';
 import { PostsActionType, PostsState } from './types';
 import { EntityState } from '../types';
-import { IComment } from '../../interfaces/Comment';
+import { IPost } from '../../interfaces/Post';
 
 const initialState: PostsState = {
   items: [],
@@ -40,9 +40,12 @@ const posts = produce((draft, action) => {
       break;
 
     case PostsActionType.UPDATE_POST:
-      console.log('test');
-      const itemIndex = draft.items.findIndex((item: IComment) => item.id === +action.payload.id);
+      const itemIndex = draft.items.findIndex((item: IPost) => item.id === +action.payload.id);
       draft.items[itemIndex] = action.payload;
+      break;
+
+    case PostsActionType.DELETE_POST:
+      draft.items.splice(draft.items.find((comment: IPost) => comment.id === action.payload), 1);
       break;
 
     default:

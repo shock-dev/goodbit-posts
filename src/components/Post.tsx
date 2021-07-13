@@ -1,8 +1,8 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, CSSProperties, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { IPost } from '../interfaces/Post';
 import { useDispatch } from 'react-redux';
-import { fetchUpdatingPost } from '../store/posts/actions';
+import { fetchDeletingPost, fetchUpdatingPost } from '../store/posts/actions';
 
 const Post = ({
   id,
@@ -24,6 +24,15 @@ const Post = ({
   const updateHandler = () => {
     dispatch(fetchUpdatingPost(id.toString(), form));
     setIsEdit(false);
+  };
+
+  const deleteHandler = () => {
+    dispatch(fetchDeletingPost(id.toString()));
+  };
+
+  const cropText: CSSProperties = {
+    lineClamp: 2,
+    overflow: 'hidden'
   };
 
   return (
@@ -48,8 +57,8 @@ const Post = ({
           </div>
         ) : (
           <div className="mb-3">
-            <h5 className="card-title">{form.title}</h5>
-            <p className="card-text">{form.body}</p>
+            <h5 className="card-title text-truncate" style={cropText}>{form.title}</h5>
+            <p className="card-text text-truncate">{form.body}</p>
           </div>
         )}
         <div className="d-flex justify-content-between align-items-center">
@@ -79,7 +88,10 @@ const Post = ({
               >
                 <i className="bi bi-pen" />
               </button>
-              <button className="btn btn-danger">
+              <button
+                className="btn btn-danger"
+                onClick={deleteHandler}
+              >
                 <i className="bi bi-trash" />
               </button>
             </div>
