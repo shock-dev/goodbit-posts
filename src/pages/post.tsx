@@ -52,7 +52,9 @@ const OnePostPage = () => {
 
   const onCreateComment = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    dispatch(fetchCreatingComment(newComment));
+    if (newComment.body.trim() !== '') {
+      dispatch(fetchCreatingComment(newComment));
+    }
   };
 
   const deleteCommentHandler = (id: string) => {
